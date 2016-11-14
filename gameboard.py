@@ -1,6 +1,7 @@
 #blebkflkdb
 #komentarz Tomka
 #komentarz krzycha
+#komentarz Piotrusia
 def tablica(x=5, y=5):
     lista = []
     for rzad in range(x):
