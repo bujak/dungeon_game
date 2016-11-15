@@ -1,5 +1,6 @@
-import os, random
+import os, random, csv
 
+#def __init__(self):
 columns = 90 #columns
 rows = 30 # rows
 def gameboard(x=5, y=5):
@@ -13,7 +14,7 @@ def gameboard(x=5, y=5):
                 list1[row].append('.')
     return list1
 
-def create_box():
+def create_box(): #take random position and putting # around it
     box_x = random.randrange(3,27)
     box_y = random.randrange(2,88)
     tab[box_x][box_y] = '#'
@@ -26,13 +27,15 @@ def create_box():
     tab[box_x-1][box_y-1] = '#'
     tab[box_x+1][box_y] = '#'
 
-def put_box(box_count):
+def put_box(box_count): #executing create_box X times
     for i in range(1,box_count):
          create_box()
 
 
-def coloring_list():
-    color_list = ["'\033[95m'", "'\033[94m'", "'\033[92m'", "'\033[93m'"]
+def coloring_list(): #coloring printed gameboard with random color
+    color_list = ["'\033[95m'", "'\033[94m'", "'\033[92m'", "'\033[93m'",
+                  "'\033[91m'", "'\033[0m'", "\[\033[0;32m\]", "\[\033[0;35m\]",
+                  "\[\033[0;35m\]", "\[\033[0;36m\]"]
     rand_color = random.choice(color_list)
     print(rand_color)
 
@@ -43,8 +46,6 @@ def printing_gameboard(list1):
     for i in list1:
         print(''.join(i))
 
-
-# printing_gameboard(gameboard(20,20))
 
 def create_lvl(box_count):
     create_box()
@@ -112,12 +113,10 @@ def move(key):
 
 
 
-
 if __name__ == '__main__':
-
     create_lvl(40)
-
     while True:
         printing_gameboard(tab)
         key = getch()
         move(key)
+
