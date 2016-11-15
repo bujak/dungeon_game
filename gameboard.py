@@ -81,8 +81,8 @@ def move(key):
             tab[x][y] = "."
             tab[x+1][y] = "@"
 
-
-while True:
-    key = getch()
-    move(key)
-    printing_gameboard(tab)
+if __name__ == '__main__':
+    while True:
+        key = getch()
+        move(key)
+        printing_gameboard(tab)
