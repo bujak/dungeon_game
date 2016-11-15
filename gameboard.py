@@ -1,6 +1,9 @@
+import os
 #blebkflkdb
 #komentarz Tomka
 #komentarz krzycha
+k = 25
+l = 25
 def tablica(x=5, y=5):
     lista = []
     for rzad in range(x):
@@ -22,8 +25,8 @@ def drukowanie_tablicy(lista):
 
 # drukowanie_tablicy(tablica(20,20))
 
-tab = tablica(14,14)
-tab[1][1]= "@"
+tab = tablica(k,l)
+tab[l-2][round(k/2)]= "@"
 drukowanie_tablicy(tab)
 
 def getch():
@@ -71,6 +74,9 @@ def move(key):
         else:
             tab[x][y] = "."
             tab[x-1][y] = "@"
+
+    elif key == "q":
+        os.system(quit())
 
     elif key == "s":
         if tab[x+1][y] == "#":
