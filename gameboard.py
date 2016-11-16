@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import os
 columns = 90 #columns
 rows = 30 # rows
@@ -8,6 +9,19 @@ def gameboard(x=5, y=5):
         for column in range(y):
             if row == 0 or row == x-1 or column == 0 or column == y-1:
                 list1[row].append('#')
+=======
+#blebkflkdb
+#komentarz Tomka
+#komentarz krzycha
+#komentarz Piotrusia
+def tablica(x=5, y=5):
+    lista = []
+    for rzad in range(x):
+        lista.append([])
+        for kolumn in range(y):
+            if rzad == 0 or rzad == x-1 or kolumn == 0 or kolumn == y-1:
+                lista[rzad].append('#')
+>>>>>>> cac092d0674baf1ce6d91a91464a778bb88af233
             else:
                 list1[row].append('.')
     return list1
