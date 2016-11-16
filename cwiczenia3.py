@@ -99,7 +99,7 @@ than 15 seconds... \n ")
 def challenge2():
 
     os.system("clear")
-    print("Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
+    print("\033[1m Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
 which wants to eats you! You must defeat him! You must know, that he is not a \
 normal Python. His HP recovers all of the time!\n")
     print("Touch as many w, s, a, d as you can to trample him or use your \
@@ -118,7 +118,7 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
     while python_hp > 0:
         t0 = time.time()
         os.system("clear")
-        print("Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
+        print("\033[1m Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
 which wants to eats you! You must defeat him! You must know, that he is not a \
 normal Python. His HP recovers all of the time!\n")
         print("Touch as many w, s, a, d as you can to trample him or use your \
@@ -132,7 +132,10 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
         #PYTHON_HP, IF MORE - YOU LOST
         key = getch()
         if len(stars_list) > r:
-            print("You lost :( ")
+            os.system("clear")
+            f = open('youlose.txt', 'r')
+            file_contents = f.read()
+            print(file_contents)
             time.sleep(3)
             break #### PUT EXIT TO GAMEBOARD FUNCTION HERE
         if key == "q":
