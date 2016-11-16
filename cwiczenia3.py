@@ -109,19 +109,24 @@ which wants to eats you! You must defeat him!")
     python_hp = 10
     stars_list = ["*"] * python_hp
     #print("dziala")
+    print(''.join(stars_list))
 
-    for x in stars_list:
-        print(x, end='')
-
-    while python_hp < 15:
+    while python_hp > 0:
+        os.system("clear")
+        print("Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
+which wants to eats you! You must defeat him!")
+        print("Touch as many w, s, a, d as you can to trample him! Let's go!\n \n \n")
+        f = open('happy_python.txt', 'r')
+        file_contents = f.read()
+        print(file_contents)
+        print(''.join(stars_list))
         key = getch()
         if key == "q":
             break
         if key == "w" or key == "s" or key == "a" or key == "d":
             python_hp -=1
             stars_list.remove("*")
-        for x in stars_list:
-            print(x, end='')
+            print(''.join(stars_list))
 
 
 
