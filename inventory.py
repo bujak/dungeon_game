@@ -55,7 +55,7 @@ def adding_loot(inventory_weight, inventory_numbers):
         inventory_weight.update(looting)
     else:
         if sum(inventory_weight.values()) > 12:
-            print("Your inventory is too heavy! You can't anything more.")
+            print("Your inventory is too heavy! You can't take anything more.")
 
         else:
             if item in inventory_weight:
@@ -67,12 +67,14 @@ def adding_loot(inventory_weight, inventory_numbers):
     if len(inventory_numbers.keys()) == 0:
         inventory_numbers[item] = 1
     else:
-        if item in inventory_numbers:
-
-            inventory_numbers[item] += 1
+        if sum(inventory_weight.values()) > 12:
+            print("\n")
 
         else:
-            inventory_numbers[item] = 1
+            if item in inventory_numbers:
+                inventory_numbers[item] += 1
+            else:
+                inventory_numbers[item] = 1
 
     increasing_char_hp(inventory_numbers,cloth_armour_class)
     print('\n' * 30)
