@@ -127,7 +127,7 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
         h = (''.join(stars_list))
         print('{:>103}'.format(h))
         r = 100 ####### CHANGE, IF YOU CHANGE PYTHON_HP. THIS VARIABLE IS MAX
-        #PYTHON_HP, IF MORE - YOU LOST
+        #PYTHON_HP, IF MORE - YOU LOSE
         key = getch()
         if len(stars_list) > r:
             os.system("clear")
