@@ -19,7 +19,7 @@ def gameboard(x=5, y=5):
 tab = gameboard(rows,columns)
 tab[rows-2][columns//2]= "@"
 
-def settable():
+def settable(gameboard):
     tab = gameboard(rows,columns)
     tab[rows-2][columns//2]= "@"
     return tab
@@ -99,8 +99,8 @@ def escape():
         f.close()
         time.sleep(3)
         os.system("clear")
-        settable()
-        main()
+        settable(gameboard)
+
 def move(key):
     coordinates = find("@")
     x = coordinates[0]
@@ -188,12 +188,14 @@ def letsplay():
         move(key)
 
 
-def main():
+if __name__ == '__main__':
+
+
     create_box()
     coloring_list()
-    put_box(50)
+    put_box(20)
     tab[rows-2][columns//2]= "@"
     positioning_escape(tab)
     letsplay()
 
-main()
+
