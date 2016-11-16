@@ -5,21 +5,22 @@ from hp_system import *
 inventory_weight = {}
 inventory_numbers = {}
 
-weapons_damage = {'rainbow sword of sir Charlie the Unicode': 3, 'dwarven axe from Lambda':4, 'bow from Ascii':2,
+weapons_damage = {'rainbow sword of sir Charlie the Unicode': 3, 'dwarven axe from Lambda': 4, 'bow from Ascii': 2,
                'warhammer of 40 000 lost souls': 5}
 cloth_armour_class = {'chromium chainmail' : 4, 'boots of Master Java' : 2, 'Elif gloves': 1, 'belt of Loop': 1}
 
-food_restore = {'bitten apple': 0.5, 'cookies': 1, 'beer':2, 'vodka': 3}
+food_restore = {'bitten apple' : 0.5, 'cookies': 1, 'beer':2, 'vodka': 3}
+
+clothes = {'chromium chainmail' : 4, 'boots of Master Java': 2, 'Elif gloves': 1, 'belt of Loop':1 }
+food = {'bitten apple' : 0.5, 'cookies': 0.5, 'beer' : 1, 'vodka' : 1}
+
+weapons = {'rainbow sword of sir Charlie the Unicode' : 2, 'dwarven axe from Lambda': 2, 'bow from Ascii': 1, 'warhammer of 40 000 lost souls' : 3}
+
+other = {'gemstone from Git continent' : 1, 'ruby' : 1,'gold coins' : 0.5, 'mysterious code' : 0.5}
 
 def generating_loot():
     '''Function that generates loot'''
-    clothes = {'chromium chainmail' : 4, 'boots of Master Java' : 2, 'Elif gloves': 0.5, 'belt of Loop': 0.5}
-    food = {'bitten apple': 0.3, 'cookies': 0.4, 'beer':0.5, 'vodka':0.6}
 
-    weapons = {'rainbow sword of sir Charlie the Unicode': 2, 'dwarven axe from Lambda':2, 'bow from Ascii':1,
-                   'warhammer of 40 000 lost souls': 3}
-
-    other = {'gemstone from Git continent': 1, 'ruby': 1,'gold coin' : 0.1, 'mysterious code': 0.5}
     loot_gen = (clothes,food,weapons,other) #chooses randomly type of content
     type_of_loot = loot_gen[random.randrange(0,3)] #chooses randomly item (key)
     generating_item = random.sample(list(type_of_loot), 1)
@@ -34,7 +35,7 @@ def positioning_loot(gameboard):
 
     tries = 0
 
-    while tries != 12:
+    while tries != 8:
         loot_position_column = random.randrange(1,88)
         loot_position_row = random.randrange(1,27)
 
@@ -53,7 +54,7 @@ def adding_loot(inventory_weight, inventory_numbers):
     if len(inventory_weight.keys()) == 0:
         inventory_weight.update(looting)
     else:
-        if sum(inventory_weight.values()) > 6:
+        if sum(inventory_weight.values()) > 12:
             print("Your inventory is too heavy! You can't anything more.")
 
         else:
