@@ -101,18 +101,16 @@ def challenge2():
     os.system("clear")
     print("\033[1m Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
 which wants to eats you! You must defeat him! You must know, that he is not a \
-normal Python. His HP recovers all of the time!\n")
+normal Python. His HP recovers all of the time! If it gets doubled up you die! \n")
     print("Touch as many w, s, a, d as you can to trample him or use your \
 weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
-    time.sleep(1)
+    time.sleep(1) ### ZROBIC DLUZEJ
     f = open('happy_python.txt', 'r')
     file_contents = f.read()
     print(file_contents)
-    time.sleep(1)
+    time.sleep(1) ### I TEGO TEZ
     python_hp = 55
     stars_list = ["*"] * python_hp
-    #print("dziala")
-    #print(''.join(stars_list))
 
 
     while python_hp > 0:
@@ -120,7 +118,7 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
         os.system("clear")
         print("\033[1m Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
 which wants to eats you! You must defeat him! You must know, that he is not a \
-normal Python. His HP recovers all of the time!\n")
+normal Python. His HP recovers all of the time! If it gets doubled up you die! \n")
         print("Touch as many w, s, a, d as you can to trample him or use your \
 weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
         f = open('python1.txt', 'r')
