@@ -1,33 +1,31 @@
 import os
-#blebkflkdb
-#komentarz Tomka
-#komentarz krzycha
-k = 25
-l = 25
-def tablica(x=5, y=5):
-    lista = []
-    for rzad in range(x):
-        lista.append([])
-        for kolumn in range(y):
-            if rzad == 0 or rzad == x-1 or kolumn == 0 or kolumn == y-1:
-                lista[rzad].append('#')
+columns = 90 #columns
+rows = 30 # rows
+def gameboard(x=5, y=5):
+    list1 = []
+    for row in range(x):
+        list1.append([])
+        for column in range(y):
+            if row == 0 or row == x-1 or column == 0 or column == y-1:
+                list1[row].append('#')
             else:
-                lista[rzad].append('.')
-    return lista
+                list1[row].append('.')
+    return list1
 
 
-def drukowanie_tablicy(lista):
+def printing_gameboard(list1):
     import os
     os.system("clear")
-    for i in lista:
+    for i in list1:
         print(''.join(i))
 
 
-# drukowanie_tablicy(tablica(20,20))
+# printing_gameboard(gameboard(20,20))
 
-tab = tablica(k,l)
-tab[l-2][round(k/2)]= "@"
-drukowanie_tablicy(tab)
+tab = gameboard(rows,columns)
+tab[rows-2][columns//2]= "@"
+printing_gameboard(tab)
+
 
 def getch():
     import sys, tty, termios
@@ -41,15 +39,13 @@ def getch():
     return ch
 
 
-
+def find(sign):
+    for row in range(len(tab)):
+        for column in range(len(tab[0])):
+            if tab[row][column] == sign:
+                return [row,column]
 
 def move(key):
-    def find(sign):
-        for rzad in range(len(tab)):
-            for kolumna in range(len(tab[0])):
-                if tab[rzad][kolumna] == sign:
-                    return [rzad,kolumna]
-
 
     coordinates = find("@")
     x = coordinates[0]
@@ -89,4 +85,4 @@ def move(key):
 while True:
     key = getch()
     move(key)
-    drukowanie_tablicy(tab)
+    printing_gameboard(tab)
