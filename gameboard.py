@@ -1,8 +1,9 @@
-import os, random, csv
+import os, random, time
 
-#def __init__(self):
-columns = 90 #columns
-rows = 30 # rows
+
+columns = 90
+rows = 30
+
 def gameboard(x=5, y=5):
     list1 = []
     for row in range(x):
@@ -13,6 +14,23 @@ def gameboard(x=5, y=5):
             else:
                 list1[row].append('.')
     return list1
+
+
+tab = gameboard(rows,columns)
+tab[rows-2][columns//2]= "@"
+
+def settable():
+    tab = gameboard(rows,columns)
+    tab[rows-2][columns//2]= "@"
+    return tab
+
+
+def printing_gameboard(list1):
+    import os
+    os.system("clear")
+    for i in list1:
+        print(''.join(i))
+
 
 def create_box(): #take random position and putting # around it
     box_x = random.randrange(3,27)
@@ -40,21 +58,11 @@ def coloring_list(): #coloring printed gameboard with random color
     print(rand_color)
 
 
-def printing_gameboard(list1):
-    import os
-    os.system("clear")
-    for i in list1:
-        print(''.join(i))
+# def create_lvl(box_count):
+#     create_box()
+#     coloring_list()
+#     put_box(box_count)
 
-
-def create_lvl(box_count):
-    create_box()
-    coloring_list()
-    put_box(box_count)
-
-tab = gameboard(rows,columns)
-tab[rows-2][columns//2]= "@"
-# printing_gameboard(tab)
 
 
 def getch():
@@ -75,11 +83,29 @@ def find(sign):
             if tab[row][column] == sign:
                 return [row,column]
 
-def move(key):
 
+def escape():
+    # esc_on_gameboard = True
+    esc = find("E")
+    player = find("@")
+    f=None
+    print(esc)
+    print(player)
+    if esc == None:
+        os.system("clear")
+        f = open('complete.txt', 'r')
+        file_contents = f.read()
+        print(file_contents)
+        f.close()
+        time.sleep(3)
+        os.system("clear")
+        settable()
+        main()
+def move(key):
     coordinates = find("@")
     x = coordinates[0]
     y = coordinates[1]
+    escape()
     if key == "a":
         if tab[x][y-1] == "#":
             tab[x][y] = "@"
@@ -113,11 +139,61 @@ def move(key):
 
 
 
-if __name__ == '__main__':
-    create_lvl(40)
+def positioning_escape(gameboard):
+    '''Positioning triggers for loot on gameboard'''
+    gameboard_loot_position_rows = []
+    gameboard_loot_position_columns = []
+    tries = 0
+
+    while tries != 1:
+        loot_position_column = random.randrange(1,88)
+        loot_position_row = random.randrange(1,27)
+
+        if gameboard[loot_position_row][loot_position_column] != "#":
+            gameboard[loot_position_row][loot_position_column] = "E"
+            gameboard_loot_position_rows.append(loot_position_row)
+            gameboard_loot_position_columns.append(loot_position_column)
+            tries += 1
+
+    return gameboard
+
+def print_complete():
+    os.system("clear")
+    f = open('complete.txt', 'r')
+    file_contents = f.read()
+    print(file_contents)
+
+
+
+    # if (esc[0] == player[0]) and (esc[1] == player[1]):
+    #     coloring_list()
+    #     return ("ok")
+
+def new_lvl():
+    tab = gameboard(rows,columns)
+    tab[rows-2][columns//2]= "@"
+    create_box()
+    coloring_list()
+    put_box(50)
+    tab[rows-2][columns//2]= "@"
+    positioning_escape(tab)
+
+
+def letsplay():
+    print(find("@"))
     while True:
         printing_gameboard(tab)
+        escape()
         key = getch()
         move(key)
 
 
+def main():
+    create_box()
+    coloring_list()
+    put_box(50)
+    tab[rows-2][columns//2]= "@"
+    positioning_escape(tab)
+    letsplay()
+
+main()
