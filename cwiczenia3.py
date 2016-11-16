@@ -161,7 +161,11 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
             stars_list.append("*")
             stars_list.append("*")
 
-    print("You defeat him, congratulations!")
+    os.system("clear")
+    print("\n\n\n \033[1m You defeated him, congratulations!")
+    f = open('python4.txt', 'r')
+    file_contents = f.read()
+    print(file_contents)
     time.sleep(3)
         ##### WYJSCIE DO GAMEBOARD
     f.close()
