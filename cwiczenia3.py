@@ -1,8 +1,6 @@
 import time
 import os
 
-
-
 def welcome_to():
     f = open('welcome_to.txt', 'r')
     file_contents = f.read()
@@ -40,7 +38,7 @@ def getch():
 
 def are_you_ready():
     if ch == "y":
-        print("dziala") ##### TUTAJ ZMIENIC NA FUNKCJE MAIN GLOWNEGO PROGRAMU
+        credits() ##### TUTAJ ZMIENIC NA FUNKCJE MAIN GLOWNEGO PROGRAMU
     elif ch == "n":
         os.system("clear")
         f = open('idiot.txt', 'r')
@@ -49,6 +47,30 @@ def are_you_ready():
         time.sleep(2)
         f.close()
         main()
+
+def credits():
+    os.system("clear")
+    f = open('credits.txt', 'r')
+    file_contents = f.read()
+    print('\033[94m' + file_contents + '\033[0m')
+    print("")
+    print("")
+    print("")
+    print("OUR TEAM: \n")
+    print("Piotr")
+    print("Michal")
+    print("Tomek")
+    print("Krzysiek")
+    print(" ")
+    print(" ")
+    print(" ")
+    print("WHO WHAT HAVE DONE:")
+    print("Piotr - ASCII Master King")
+    print("Michal - Item Thief")
+    print("Tomek - Level Developer")
+    print("Krzysiek - Design Developer")
+    f.close()
+
 
 def main():
     os.system("clear")

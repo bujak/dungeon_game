@@ -1,6 +1,11 @@
 import os
 columns = 90 #columns
 rows = 30 # rows
+
+def welcome_screen():
+
+
+
 def gameboard(x=5, y=5):
     list1 = []
     for row in range(x):
