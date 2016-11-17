@@ -129,13 +129,13 @@ def coloring_list(): #coloring printed gameboard with random color
     rand_color = random.choice(color_list)
     print(rand_color)
 
-def escape(tab, game):
+def escape(tab):
     esc = find("E")
 
     player = find("@")
     f=None
-    print(esc)
-    print(player)
+    # print(esc)
+    # print(player)
     if esc == None:
         os.system("clear")
         f = open('complete.txt', 'r')
@@ -159,19 +159,19 @@ def escape(tab, game):
 
 
 
-def new_lvl(tab):
-
-    tab = gameboard()
-    settable(tab)
-    create_box()
-    put_box(2)
-    positioning_escape(tab)
-    while True:
-        escape(tab)
-        printing_gameboard(tab)
-        key = getch()
-        move(key)
-    return tab
+# def new_lvl(tab):
+#
+#     tab = gameboard()
+#     settable(tab)
+#     create_box()
+#     put_box(2)
+#     positioning_escape(tab)
+#     while True:
+#         escape(tab)
+#         printing_gameboard(tab)
+#         key = getch()
+#         move(key)
+#     return tab
 
 if __name__ == '__main__':
 
@@ -185,6 +185,6 @@ if __name__ == '__main__':
         printing_gameboard(tab)
         key = getch()
         move(key)
-        escape(tab, game)
+        escape(tab)
 
 

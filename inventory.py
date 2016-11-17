@@ -98,6 +98,8 @@ def dropping_item(inventory_weight, inventory_numbers):
         else:
             del inventory_numbers[item_to_remove]
             del inventory_weight[item_to_remove]
+    else:
+        print("You don't have such item.")
 
     return inventory_weight, inventory_numbers
 
