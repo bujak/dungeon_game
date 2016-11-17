@@ -1,8 +1,5 @@
 import time
 import os
-from inventory import *
-from hp_system import *
-from gameboard_boxes import *
 
 def welcome_to():
     """Opens welcome_to txt file"""
@@ -72,7 +69,7 @@ def are_you_ready():
         intro()
 
 
-def challenge1(inventory_numbers):
+def challenge1():
     """Challenge 1 in level 1"""
     os.system("clear")
     print("Challenge 1\n\n")
@@ -80,12 +77,10 @@ def challenge1(inventory_numbers):
     z = input("Are you ready? (y - yes, n - no)")
     if z == "y":
         t0 = time.time()
-
-        if sum(inventory_numbers.values()) > 4:
-        #t1 = input("Trwa pomiar czasu. Wprowadz cos, aby go zatrzymac")
+        t1 = input("Trwa pomiar czasu. Wprowadz cos, aby go zatrzymac")
             ##### PODSTAWIC TUTAJ FUNKCJE GLOWNY MAIN GRY I W NIEJ TRZEBA
             ##### NAPISAC, ZE ONA (main) PRZESTAJE DZIALAC, GDY ZDOBYTO 5 LOOTA.
-            t1 = time.time()
+        t1 = time.time()
         total = t1 - t0
 
         print("Hurra! You collect 5 loot. Let's check if you do it in less\
@@ -97,7 +92,7 @@ than 15 seconds... \n ")
         time.sleep(1)
         print("          ***\n")
         time.sleep(1)
-        if total<=15 and sum(inventory_numbers.values()) > 9: ########### ILOSC CZASU NA ZEBRANIE LOOTA, DO OKIELZNANIA
+        if total<=15: ########### ILOSC CZASU NA ZEBRANIE LOOTA, DO OKIELZNANIA
             print("Yeah, you did it! You shall pass to next level!")
             ############################################## WKLEIC TUTAJ 2 level
         else:
@@ -105,7 +100,7 @@ than 15 seconds... \n ")
             time.sleep(3)
             challenge1()
 
-def challenge2(inventory_numbers,weapons_damage):
+def challenge2():
 
     os.system("clear")
     print("\033[1m Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
@@ -151,21 +146,8 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
             python_hp -=1
             stars_list.remove("*")
             print(''.join(stars_list))
-            continue
         if key == "t":
-            best_weapon_in_inventory = []
-            for key in inventory_numbers:
-
-                if key in weapons_damage:
-                    best_weapon_in_inventory.append(weapons_damage[key])
-
-
-            damage = max(best_weapon_in_inventory)
-            python_hp -= damage
-            print("Python suffers %d damages and bleeds! You are sadist! Shame! *ding ding*" %damage)
-            continue
-
-                      ###### YOU CAN CHANGE POWER OF WEAPON HERE
+            python_hp -=2            ###### YOU CAN CHANGE POWER OF WEAPON HERE
             if python_hp > 1:
                 stars_list.remove("*")
                 stars_list.remove("*")
@@ -182,21 +164,21 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
             stars_list.append("*")
 
     os.system("clear")
-    if len(stars_list) < 3:
+    if len(stars_list) < 2:
+        #stars_list.clear
         print("\n\n\n \033[1m You defeated him, congratulations!")
         f = open('python4.txt', 'r')
         file_contents = f.read()
         print(file_contents)
         time.sleep(3)
-            ##### WYJSCIE DO GAMEBOARD
+        ##### WYJSCIE DO GAMEBOARD
     f.close()
 
 
-def challenge3(inventory_numbers, inventory_weight, cloth_armour_class, food_restore, char_hp):
+def challenge3():
     import random
     import time
     import os
-    from inventory import print_inventory
     def number_generator():
 
         a = str(random.randrange(1,9))
@@ -237,7 +219,7 @@ def challenge3(inventory_numbers, inventory_weight, cloth_armour_class, food_res
             print("cold")
 
 
-    def main2(inventory_weight, inventory_numbers, cloth_armour_class, food_restore, char_hp):
+    def main2():
         os.system("clear")
         print('''I am thinking of a 3-digit number. Try to guess what it is.
 
@@ -251,18 +233,12 @@ def challenge3(inventory_numbers, inventory_weight, cloth_armour_class, food_res
 
           Hot        One digit is correct and in the right position.
 
-        I have thought up a number. You have %d guesses to get it.''' %char_hp)
+        I have thought up a number. You have 10 guesses to get it.''')
         random_number = number_generator()
         print(random_number) ###### USUNAC TO NA KONCU
-
-        print("You currently have %d health points." %char_hp)
+        guess_count = 1
         while True:
-            key = getch()
-
-            user_input = input("\nGuess #%d:\n" % (char_hp))
-            if key == "h":
-                print_inventory(inventory_weight,inventory_numbers)
-                restore_char_hp(inventory_numbers, inventory_weight, cloth_armour_class, food_restore, char_hp)
+            user_input = input("\nGuess #%d:\n" % (guess_count))
             if len(user_input) != 3 or not user_input.isdigit():
                 print("wrong input")
                 continue
@@ -277,19 +253,13 @@ def challenge3(inventory_numbers, inventory_weight, cloth_armour_class, food_res
                 ####### TUTAJ WSTAWIC WYJSCIE DO GAMEBOARD
                 break
             check(user_input, random_number)
-            if char_hp == 0:
-                print("\n"*20)
-                print("*" * 5)
-                print("\nYou die!!!")
+            if guess_count == 10:
                 break
-            char_hp -= 1
-
-
-
+            guess_count += 1
 
 
     #if __name__ == '__main__':
-    main2(inventory_weight,inventory_numbers, cloth_armour_class, food_restore, char_hp)
+    main2()
 
 
 
@@ -333,5 +303,4 @@ def main():
     ch = getch()
     are_you_ready()
 
-
-#main()
+main()
