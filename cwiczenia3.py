@@ -97,51 +97,73 @@ than 15 seconds... \n ")
             challenge1()
 
 def challenge2():
+
     os.system("clear")
     print("Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
-which wants to eats you! You must defeat him!")
-    print("Touch as many w, s, a, d as you can to trample him! Let's go!\n \n \n")
+which wants to eats you! You must defeat him! You must know, that he is not a \
+normal Python. His HP recovers all of the time!\n")
+    print("Touch as many w, s, a, d as you can to trample him or use your \
+weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
     time.sleep(1)
     f = open('happy_python.txt', 'r')
     file_contents = f.read()
     print(file_contents)
-
+    time.sleep(1)
     python_hp = 55
     stars_list = ["*"] * python_hp
     #print("dziala")
-    print(''.join(stars_list))
+    #print(''.join(stars_list))
+
 
     while python_hp > 0:
+        t0 = time.time()
         os.system("clear")
         print("Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
-which wants to eats you! You must defeat him!")
-        print("Touch as many w, s, a, d as you can to trample him! Let's go!\n \n \n")
-        f = open('happy_python.txt', 'r')
+which wants to eats you! You must defeat him! You must know, that he is not a \
+normal Python. His HP recovers all of the time!\n")
+        print("Touch as many w, s, a, d as you can to trample him or use your \
+weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
+        f = open('python1.txt', 'r')
         file_contents = f.read()
         print(file_contents)
-
-#'{:>30}'.format('right aligned')
-#'                right aligned'
-
         h = (''.join(stars_list))
         print('{:>103}'.format(h))
+        r = 100 ####### CHANGE, IF YOU CHANGE PYTHON_HP. THIS VARIABLE IS MAX
+        #PYTHON_HP, IF MORE - YOU LOST
         key = getch()
+        if len(stars_list) > r:
+            print("You lost :( ")
+            time.sleep(3)
+            break #### PUT EXIT TO GAMEBOARD FUNCTION HERE
         if key == "q":
             break
         if key == "w" or key == "s" or key == "a" or key == "d":
             python_hp -=1
             stars_list.remove("*")
             print(''.join(stars_list))
+        if key == "t":
+            python_hp -=2            ###### YOU CAN CHANGE POWER OF WEAPON HERE
+            if python_hp > 1:
+                stars_list.remove("*")
+                stars_list.remove("*")
+            print(''.join(stars_list))
+        t1 = time.time()
+        total = t1 - t0
 
+        if total > 0.15:
+            python_hp+=5
+            stars_list.append("*")
+            stars_list.append("*")
+            stars_list.append("*")
+            stars_list.append("*")
+            stars_list.append("*")
 
-
-
-    #elif z == "n":
-        #print("What a pity :(")
-        # PODSTAWIC TUTAJ FUNKCJE GLOWNY MAIN GRY
-    else:
-        print("Wrong command")
+    print("You defeat him, congratulations!")
+    time.sleep(3)
+        ##### WYJSCIE DO GAMEBOARD
     f.close()
+
+
 def credits():
     """Show credits of the game"""
     os.system("clear")
