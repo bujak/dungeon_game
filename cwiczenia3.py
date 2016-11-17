@@ -106,7 +106,7 @@ which wants to eats you! You must defeat him!")
     file_contents = f.read()
     print(file_contents)
 
-    python_hp = 10
+    python_hp = 55
     stars_list = ["*"] * python_hp
     #print("dziala")
     print(''.join(stars_list))
@@ -119,7 +119,12 @@ which wants to eats you! You must defeat him!")
         f = open('happy_python.txt', 'r')
         file_contents = f.read()
         print(file_contents)
-        print(''.join(stars_list))
+
+#'{:>30}'.format('right aligned')
+#'                right aligned'
+
+        h = (''.join(stars_list))
+        print('{:>103}'.format(h))
         key = getch()
         if key == "q":
             break
