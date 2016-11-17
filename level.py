@@ -32,13 +32,13 @@ def create_box(): #take random position and putting # around it
     box_x = random.randrange(3,27)
     box_y = random.randrange(2,88)
     tab[box_x][box_y] = '#'
-    tab[box_x-1][box_y+1] = '#'
+    #tab[box_x-1][box_y+1] = '#'
     tab[box_x+1][box_y-1] = '#'
-    tab[box_x][box_y-1] = '#'
+    #tab[box_x][box_y-1] = '#'
     tab[box_x][box_y+1] = '#'
-    tab[box_x+1][box_y+1] = '#'
+    #tab[box_x+1][box_y+1] = '#'
     tab[box_x-1][box_y] = '#'
-    tab[box_x-1][box_y-1] = '#'
+    #tab[box_x-1][box_y-1] = '#'
     tab[box_x+1][box_y] = '#'
     return tab
 
