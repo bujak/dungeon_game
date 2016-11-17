@@ -55,7 +55,7 @@ def settable(tab):
 
 def printing_gameboard(list1):
     import os
-    os.system("clear")
+
     for i in list1:
         print(''.join(i))
 
@@ -94,23 +94,26 @@ def new_lvl(tab):
     positioning_python(tab)
     while True:
         printing_gameboard(tab)
-        char_hp = increasing_char_hp(inventory_numbers,cloth_armour_class)
-        print("You currently have %d health points!\n" %char_hp)
         key = getch()
         move(key,tab)
-        if key == "i":
-            try:
-                print_inventory(inventory_weight, inventory_numbers)
-            except ValueError:
-                print('\n' * 30)
-                print("Inventory is empty! Go loop for some loot!")
+        char_hp = increasing_char_hp(inventory_numbers,cloth_armour_class)
+        print("You currently have %d health points!\n" %char_hp)
+        try:
+            print_inventory(inventory_weight, inventory_numbers)
+        except ValueError:
+            print('\n' * 30)
+            print("Inventory is empty! Go loop for some loot!")
+        # if key == "i":
 
         if key ==  "r":
+            os.system("clear")
             try:
                 dropping_item(inventory_weight, inventory_numbers)
             except ValueError:
                 print('\n' * 30)
                 print("Inventory is empty! You don't have anything to remove from inventory!")
+            # os.system("clear")
+        # os.system("clear")
 
 
 def challenge1_main(tab):
@@ -293,7 +296,10 @@ def move(key,tab):
                 tab[x][y] == "."
                 tab[x][y-1] = "."
 
-            
+            elif tab[x][y-1] == "C":
+                challenge1(inventory_numbers)
+                tab[x][y] == "."
+                tab[x][y-1] = "."
 
             else:
                 tab[x][y] = "."
@@ -322,6 +328,11 @@ def move(key,tab):
 
             elif tab[x][y+1] == "B":
                 challenge3(challenge3(inventory_numbers, inventory_weight, cloth_armour_class, food_restore, char_hp))
+                tab[x][y] == "."
+                tab[x][y+1] = "."
+
+            elif tab[x][y+1] == "C":
+                challenge1(inventory_numbers)
                 tab[x][y] == "."
                 tab[x][y+1] = "."
 
@@ -355,6 +366,11 @@ def move(key,tab):
                 tab[x][y] == "."
                 tab[x-1][y] = "."
 
+            elif tab[x-1][y] == "C":
+                challenge1(inventory_numbers)
+                tab[x][y] == "."
+                tab[x-1][y] = "."
+
             else:
                 tab[x][y] = "."
                 tab[x-1][y] = "@"
@@ -384,6 +400,10 @@ def move(key,tab):
                 tab[x][y] == "."
                 tab[x+1][y] = "."
 
+            elif tab[x+1][y] == "C":
+                challenge1(inventory_numbers)
+                tab[x][y] == "."
+                tab[x+1][y] = "."
 
             else:
                 tab[x][y] = "."

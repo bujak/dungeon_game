@@ -30,6 +30,8 @@ challenges and finally defeat a boss. \n")
     print("To move down, press \"s\"")
     print("To move left, press \"a\"")
     print("To move right, press \"d\" \n")
+
+
     print("3. A R E  Y O U  R E A D Y ???\n (y - yes =), n - no :( c - challenge1 \
 v - challenge2 b - challenge3")
 
@@ -46,10 +48,11 @@ def getch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
+
 def are_you_ready():
     """Asks user if he is ready to play"""
     if ch == "y":
-        credits() ##### TUTAJ ZMIENIC NA FUNKCJE MAIN GLOWNEGO PROGRAMU
+        time.sleep(0)         ##### TUTAJ ZMIENIC NA FUNKCJE MAIN GLOWNEGO PROGRAMU
     elif ch == "n":
         os.system("clear")
         f = open('idiot.txt', 'r')
@@ -67,6 +70,9 @@ def are_you_ready():
 
     elif ch == "b":
         challenge3()
+
+    elif ch == "k":
+        credits()
 
     else:
         print("Wrong command")
@@ -297,6 +303,8 @@ def credits():
     print("Tomek - Level Developer")
     print("Krzysiek - Design Developer")
     f.close()
+    time.sleep(7)
+    main()
 
 
 def main():
