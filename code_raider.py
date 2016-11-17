@@ -1,18 +1,22 @@
 from inventory import*
 from hp_system import*
-import os, random, time
+import os
+import random
+import time
 import sys
 
 
 '''Global variables'''
-columns = 90 #columns
-rows = 30 # rows
+columns = 90
+rows = 30
 
 inventory_weight = {}
 inventory_numbers = {}
 
 
 '''Welcome functions.'''
+
+
 def welcome_to():
     """Opens welcome_to txt file"""
     f = open('welcome_to.txt', 'r')
@@ -20,12 +24,14 @@ def welcome_to():
     print(file_contents)
     f.close()
 
+
 def coderaider():
     """Opens coderaider txt file"""
     f = open('coderaider.txt', 'r')
     file_contents = f.read()
     print('\033[92m' + file_contents + '\033[0m')
     f.close()
+
 
 def intro():
     """Shows target of game, controls and asks user if he is ready"""
@@ -38,6 +44,7 @@ challenges and finally defeat a boss. \n")
     print("To move left, press \"a\"")
     print("To move right, press \"d\" \n")
     print("3. A R E  Y O U  R E A D Y ???\n (y - yes =), n - no :(")
+
 
 def credits():
     """Show credits of the game"""
@@ -65,7 +72,10 @@ def credits():
 
 
 '''General functions.'''
+
+
 def gameboard(x=5, y=5):
+    """Create list with # as borders and . as field"""
     list1 = []
     for row in range(x):
         list1.append([])
@@ -76,9 +86,11 @@ def gameboard(x=5, y=5):
                 list1[row].append('.')
     return list1
 
+
 def create_box(tab):
-    box_x = random.randrange(3,27)
-    box_y = random.randrange(2,88)
+    """Create boxes of # in board"""
+    box_x = random.randrange(3, 27)
+    box_y = random.randrange(2, 88)
     tab[box_x][box_y] = '#'
     tab[box_x-1][box_y+1] = '#'
     tab[box_x+1][box_y-1] = '#'
@@ -89,58 +101,64 @@ def create_box(tab):
     tab[box_x-1][box_y-1] = '#'
     tab[box_x+1][box_y] = '#'
 
-def put_box(box_count,tab):
-    for i in range(1,box_count):
-         create_box(tab)
+
+def put_box(box_count, tab):
+    '''Puts certain amount of boxes'''
+    for i in range(1, box_count):
+        create_box(tab)
 
 
 def coloring_list():
+    '''Print in color chosen by random'''
     color_list = ["'\033[95m'", "'\033[94m'", "'\033[92m'", "'\033[93m'"]
     rand_color = random.choice(color_list)
     print(rand_color)
 
+
 def clear_tab(tab):
+    '''Clears board'''
     for i in range(len(tab)):
-        tab[i] = [ ]
+        tab[i] = []
         for k in range(len(tab[i])):
-            tab[i][k]=[ ]
-
-
+            tab[i][k] = []
     return tab
 
+
 def settable(tab):
-    tab[rows-2][columns//2]= "@"
+    '''Putting @ mark on board'''
+    tab[rows - 2][columns // 2] = "@"
     return tab
 
 
 def printing_gameboard(list1):
+    '''Print board in user-friendly format'''
     import os
     os.system("clear")
     for i in list1:
         print(''.join(i))
 
 
-# printing_gameboard(gameboard(20,20))
-
 def create_lvl(box_count):
+    '''Prepares board for level'''
     create_box()
     coloring_list()
     put_box(box_count)
 
 
-# printing_gameboard(tab)
-
 def escape(tab):
+    '''Escape of level'''
     os.system("clear")
-    #f = open('complete.txt', 'r')
-    #file_contents = f.read()
-    #print(file_contents)
-    #f.close()
+    # f = open('complete.txt', 'r')
+    # file_contents = f.read()
+    # print(file_contents)
+    # f.close()
     time.sleep(1)
     os.system("clear")
     clear_tab(tab)
 
+
 def getch():
+    '''Getting one typed input sign character, some kind of magic'''
     import sys, tty, termios
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
@@ -153,22 +171,27 @@ def getch():
 
 
 def find(sign, tab):
+    '''Finds sign in gameboard'''
     for row in range(len(tab)):
         for column in range(len(tab[0])):
             if tab[row][column] == sign:
-                return [row,column]
+                return [row, column]
 
-def move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class):
 
-    coordinates = find("@",tab)
+def move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class):
+    ''''Move function, also check for events on board and start them'''
+
+    coordinates = find("@", tab)
     x = coordinates[0]
     y = coordinates[1]
 
     if key == "a":
+        '''when player moves to the border, # do not change'''
         if tab[x][y-1] == "#":
             tab[x][y] = "@"
 
         else:
+            '''Executing events when player touch sign'''
             if tab[x][y-1] == "L":
                 adding_loot(inventory_weight, inventory_numbers)
                 tab[x][y] == "."
@@ -180,11 +203,11 @@ def move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class):
                 tab[x][y-1] = "."
 
             elif tab[x][y-1] == "S":
-                challenge2(inventory_numbers,weapons_damage)
+                challenge2(inventory_numbers, weapons_damage)
                 tab[x][y] == "."
                 tab[x][y-1] = "."
-
             else:
+                '''Executing events when player touch sign'''
                 tab[x][y] = "."
                 tab[x][y-1] = "@"
 
@@ -192,9 +215,8 @@ def move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class):
         if tab[x][y+1] == "#":
             tab[x][y] = "@"
 
-
         else:
-            if  tab[x][y+1] == "L":
+            if tab[x][y+1] == "L":
                 adding_loot(inventory_weight, inventory_numbers)
                 tab[x][y] == "."
                 tab[x][y+1] = "."
@@ -205,7 +227,7 @@ def move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class):
                 tab[x][y+1] = "."
 
             elif tab[x][y+1] == "S":
-                challenge2(inventory_numbers,weapons_damage)
+                challenge2(inventory_numbers, weapons_damage)
                 tab[x][y] == "."
                 tab[x][y+1] = "."
 
@@ -230,7 +252,7 @@ def move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class):
                 tab[x-1][y] = "."
 
             elif tab[x-1][y] == "S":
-                challenge2(inventory_numbers,weapons_damage)
+                challenge2(inventory_numbers, weapons_damage)
                 tab[x][y] == "."
                 tab[x-1][y] = "."
 
@@ -241,8 +263,6 @@ def move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class):
     elif key == "s":
         if tab[x+1][y] == "#":
             tab[x][y] = "@"
-
-
         else:
             if tab[x+1][y] == "L":
                 adding_loot(inventory_weight, inventory_numbers)
@@ -254,11 +274,9 @@ def move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class):
                 tab[x+1][y] == "."
 
             elif tab[x+1][y] == "S":
-                challenge2(inventory_numbers,weapons_damage)
+                challenge2(inventory_numbers, weapons_damage)
                 tab[x][y] == "."
                 tab[x+1][y] = "."
-
-
             else:
                 tab[x][y] = "."
                 tab[x+1][y] = "@"
@@ -268,6 +286,7 @@ def move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class):
 
 
 '''Challenges'''
+
 
 def are_you_ready(key, tab, inventory_numbers, inventory_weight, cloth_armour_class):
     """Asks user if he is ready to play"""
@@ -282,34 +301,36 @@ def are_you_ready(key, tab, inventory_numbers, inventory_weight, cloth_armour_cl
         f.close()
         sys.exit()
 
+
 def time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class):
-    """Challenge 1 in level 1"""
+    '''In time challenge player have to collect items in set time'''
+
     os.system("clear")
     print("Challenge 1\n\n")
     print("You have to collect 5 loot in 40 seconds. Good luck!\n")
     z = input("Are you ready? (y - yes, n - no) ")
     if z == "y":
 
-        tab = gameboard(rows,columns)
+        tab = gameboard(rows, columns)
         settable(tab)
         create_box(tab)
-        put_box(25,tab)
+        put_box(25, tab)
         positioning_loot(tab)
         coloring_list()
         time0 = time.clock()
         total_time = 0
         while True:
             time1 = time.clock()
-            print(time0)
-            print(time1)
+            # print(time0)
+            # print(time1)
             total = time1 + time0
 
-            print(total)
+            # print(total)
             printing_gameboard(tab)
-            char_hp = increasing_char_hp(inventory_numbers,cloth_armour_class)
-            print("You currently have %d health points!\n" %char_hp)
+            char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
+            print("You currently have %d health points!\n" % char_hp)
             key = getch()
-            move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class)
+            move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class)
             if key == "i":
                 try:
                     print_inventory(inventory_weight, inventory_numbers)
@@ -317,7 +338,7 @@ def time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
                     print('\n' * 30)
                     print("Inventory is empty! Go loop for some loot!")
 
-            if key ==  "r":
+            if key == "r":
                 try:
                     dropping_item(inventory_weight, inventory_numbers)
                 except ValueError:
@@ -338,7 +359,6 @@ def time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
                 print(file_contents)
                 main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
 
-
     else:
         main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
 
@@ -349,31 +369,31 @@ def positioning_python(gameboard):
     tries = 0
 
     while tries != 1:
-        loot_position_column = random.randrange(1,88)
-        loot_position_row = random.randrange(1,27)
+        loot_position_column = random.randrange(1, 88)
+        loot_position_row = random.randrange(1, 27)
 
-        if gameboard[loot_position_row][loot_position_column] != "#" :
+        if gameboard[loot_position_row][loot_position_column] != "#":
             gameboard[loot_position_row][loot_position_column] = "S"
-
 
             tries += 1
     return gameboard
 
 
 def new_lvl_python(tab, inventory_numbers, inventory_weight, cloth_armour_class):
-    tab = gameboard(rows,columns)
+    '''Creates and set level with Python encounter'''
+    tab = gameboard(rows, columns)
     settable(tab)
     create_box(tab)
-    put_box(20,tab)
+    put_box(20, tab)
     positioning_python(tab)
     positioning_loot(tab)
     coloring_list()
     while True:
         printing_gameboard(tab)
-        char_hp = increasing_char_hp(inventory_numbers,cloth_armour_class)
-        print("You currently have %d health points!\n" %char_hp)
+        char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
+        print("You currently have %d health points!\n" % char_hp)
         key = getch()
-        move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class)
+        move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class)
         if key == "i":
             try:
                 print_inventory(inventory_weight, inventory_numbers)
@@ -381,29 +401,29 @@ def new_lvl_python(tab, inventory_numbers, inventory_weight, cloth_armour_class)
                 print('\n' * 30)
                 print("Inventory is empty! Go loop for some loot!")
 
-        if key ==  "r":
+        if key == "r":
             try:
                 dropping_item(inventory_weight, inventory_numbers)
             except ValueError:
                 print('\n' * 30)
                 print("Inventory is empty! You don't have anything to remove from inventory!")
 
-def challenge2(inventory_numbers,weapons_damage):
 
+def challenge2(inventory_numbers, weapons_damage):
+    '''Challenge with python trampling'''
     os.system("clear")
     print("\033[1m Wooaaaaaaaa! Watch out! There is an extremly huge Python,\
 which wants to eats you! You must defeat him! You must know, that he is not a \
 normal Python. His HP recovers all of the time! If it gets doubled up you die! \n")
     print("Touch as many w, s, a, d as you can to trample him or use your \
 weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
-    time.sleep(1) ### ZROBIC DLUZEJ
+    time.sleep(3)  # ZROBIC DLUZEJ
     f = open('happy_python.txt', 'r')
     file_contents = f.read()
     print(file_contents)
-    time.sleep(1) ### I TEGO TEZ
+    time.sleep(3)  # I TEGO TEZ
     python_hp = 55
     stars_list = ["*"] * python_hp
-
 
     while python_hp > 0:
         t0 = time.time()
@@ -418,8 +438,8 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
         print(file_contents)
         h = (''.join(stars_list))
         print('{:>103}'.format(h))
-        r = 100 ####### CHANGE, IF YOU CHANGE PYTHON_HP. THIS VARIABLE IS MAX
-        #PYTHON_HP, IF MORE - YOU LOSE
+        r = 100  # CHANGE, IF YOU CHANGE PYTHON_HP. THIS VARIABLE IS MAX
+        # PYTHON_HP, IF MORE - YOU LOSE
         key = getch()
 
         if len(stars_list) > r:
@@ -432,7 +452,7 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
         if key == "q":
             break
         if key == "w" or key == "s" or key == "a" or key == "d":
-            python_hp -=1
+            python_hp -= 1
             stars_list.remove("*")
             print(''.join(stars_list))
 
@@ -447,8 +467,8 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
                     damage = 1
             python_hp -= damage
 
-                     #for i in range(damage):
-                        #stars_list.remove("*")
+            # for i in range(damage):
+            # stars_list.remove("*")
 
             if python_hp > 3:
                 for i in range(damage):
@@ -459,7 +479,7 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
         total = t1 - t0
 
         if total > 0.12:
-            python_hp+=5
+            python_hp += 5
             stars_list.append("*")
             stars_list.append("*")
             stars_list.append("*")
@@ -483,30 +503,31 @@ def positioning_boss(gameboard):
     tries = 0
 
     while tries != 1:
-        loot_position_column = random.randrange(1,88)
-        loot_position_row = random.randrange(1,27)
+        loot_position_column = random.randrange(1, 88)
+        loot_position_row = random.randrange(1, 27)
 
         if gameboard[loot_position_row][loot_position_column] != "#":
             gameboard[loot_position_row][loot_position_column] = "B"
 
-
             tries += 1
     return gameboard
 
+
 def new_lvl_boss(tab, inventory_numbers, inventory_weight, cloth_armour_class):
-    tab = gameboard(rows,columns)
+    '''Creates and set level with Python encounter'''
+    tab = gameboard(rows, columns)
     settable(tab)
     create_box(tab)
-    put_box(5,tab)
+    put_box(5, tab)
     positioning_boss(tab)
     positioning_loot(tab)
     coloring_list()
     while True:
         printing_gameboard(tab)
-        char_hp = increasing_char_hp(inventory_numbers,cloth_armour_class)
-        print("You currently have %d health points!\n" %char_hp)
+        char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
+        print("You currently have %d health points!\n" % char_hp)
         key = getch()
-        move(key,tab, inventory_numbers, inventory_weight, cloth_armour_class)
+        move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class)
         if key == "i":
             try:
                 print_inventory(inventory_weight, inventory_numbers)
@@ -514,7 +535,7 @@ def new_lvl_boss(tab, inventory_numbers, inventory_weight, cloth_armour_class):
                 print('\n' * 30)
                 print("Inventory is empty! Go loop for some loot!")
 
-        if key ==  "r":
+        if key == "r":
             try:
                 dropping_item(inventory_weight, inventory_numbers)
             except ValueError:
@@ -523,30 +544,34 @@ def new_lvl_boss(tab, inventory_numbers, inventory_weight, cloth_armour_class):
 
 
 def number_generator():
+    '''Number generator for boss fight'''
 
-    a = str(random.randrange(1,9))
-    b = str(random.randrange(1,9))
+    a = str(random.randrange(1, 9))
+    b = str(random.randrange(1, 9))
 
     while a == b:
-       b = str(random.randrange(1,9))
-    b=a+b
+        b = str(random.randrange(1, 9))
+    b = a+b
 
-    c = str(random.randrange(1,9))
+    c = str(random.randrange(1, 9))
     while c in b:
-       c = str(random.randrange(1,9))
-    c=b+c
+        c = str(random.randrange(1, 9))
+    c = b+c
 
     number = c
     return number
 
 
 def check_win(user_input, number):
+    '''checks win for boss fight'''
     if user_input == number:
         return True
     else:
         return False
 
+
 def check(user_input, number):
+    '''check user input for boss fight'''
     counter = 0
     hot = []
     for i in range(len(number)):
@@ -556,14 +581,17 @@ def check(user_input, number):
                 counter += 1
     for i in range(len(number)):
         if i not in hot and user_input[i] in number:
-            print('warm', end=' ' )
+            print('warm', end=' ')
             counter += 1
     if counter == 0:
         print("cold")
 
+
 def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
+    '''boss encounter'''
+
     os.system("clear")
-    char_hp = increasing_char_hp(inventory_numbers,cloth_armour_class)
+    char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
     print('''I am thinking of a 3-digit number. Try to guess what it is.
 
         Here are some clues:
@@ -576,16 +604,16 @@ def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
 
           Hot        One digit is correct and in the right position.
 
-        I have thought up a number. You have %d guesses to get it.''' %char_hp)
+        I have thought up a number. You have %d guesses to get it.''' % char_hp)
     random_number = number_generator()
-    print(random_number) ###### USUNAC TO NA KONCU
+    # print(random_number)  # USUNAC TO NA KONCU
 
-    print("You currently have %d health points." %char_hp)
+    print("You currently have %d health points." % char_hp)
     while True:
         key = getch()
         user_input = input("\nGuess #%d or press 'h' to heal by eating food:\n" % (char_hp))
         if user_input == "h":
-            print_inventory(inventory_weight,inventory_numbers)
+            print_inventory(inventory_weight, inventory_numbers)
             restore_char_hp(inventory_numbers, inventory_weight, cloth_armour_class, char_hp)
         if len(user_input) != 3 or not user_input.isdigit():
             print("wrong input")
@@ -614,14 +642,11 @@ def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
         char_hp -= 1
 
 
+# if __name__ == '__main__':
 
 
+tab = gameboard(rows, columns)
 
-
-#if __name__ == '__main__':
-
-
-tab = gameboard(rows,columns)
 
 def main(tab, inventory_numbers, inventory_weight, cloth_armour_class):
     """Runs program as a tree"""
