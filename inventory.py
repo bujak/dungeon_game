@@ -9,7 +9,7 @@ weapons_damage = {'rainbow sword of sir Charlie the Unicode': 3, 'dwarven axe fr
                'warhammer of 40 000 lost souls': 5}
 cloth_armour_class = {'chromium chainmail' : 4, 'boots of Master Java' : 2, 'Elif gloves': 1, 'belt of Loop': 1}
 
-food_restore = {'bitten apple' : 0.5, 'cookies': 1, 'beer':2, 'vodka': 3}
+
 
 clothes = {'chromium chainmail' : 4, 'boots of Master Java': 2, 'Elif gloves': 1, 'belt of Loop':1 }
 food = {'bitten apple' : 0.5, 'cookies': 0.5, 'beer' : 1, 'vodka' : 1}
@@ -98,6 +98,7 @@ def dropping_item(inventory_weight, inventory_numbers):
         else:
             del inventory_numbers[item_to_remove]
             del inventory_weight[item_to_remove]
+
     else:
         print("You don't have such item.")
 

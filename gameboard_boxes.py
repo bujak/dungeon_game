@@ -149,9 +149,6 @@ def move(key):
                 tab[x][y] == "."
                 tab[x][y-1] = "."
 
-            # elif tab[x-1][y] == "E":
-            #     escape(tab)
-
             else:
                 tab[x][y] = "."
                 tab[x][y-1] = "@"
@@ -181,9 +178,6 @@ def move(key):
                 challenge3(inventory_weight, inventory_numbers,  cloth_armour_class, food_restore, char_hp)
                 tab[x][y] == "."
                 tab[x][y+1] = "."
-
-            # elif tab[x-1][y] == "E":
-            #     escape(tab)
 
             else:
                 tab[x][y] = "."
@@ -215,9 +209,6 @@ def move(key):
                 tab[x][y] == "."
                 tab[x-1][y] = "."
 
-            elif tab[x-1][y] == "E":
-                escape(tab)
-
             else:
                 tab[x][y] = "."
                 tab[x-1][y] = "@"
@@ -245,11 +236,6 @@ def move(key):
                 challenge3(inventory_weight, inventory_numbers, cloth_armour_class, food_restore, char_hp)
                 tab[x+1][y] == "."
 
-
-            elif tab[x+1][y] == "E":
-                escape(tab)
-
-
             else:
                 tab[x][y] = "."
                 tab[x+1][y] = "@"
@@ -261,55 +247,8 @@ def move(key):
         os.system(quit())
 
 
-def positioning_escape(gameboard):
-    '''Positioning triggers for loot on gameboard'''
-    gameboard_loot_position_rows = []
-    gameboard_loot_position_columns = []
-    tries = 0
-
-    while tries != 1:
-        loot_position_column = random.randrange(1,88)
-        loot_position_row = random.randrange(1,27)
-
-        if gameboard[loot_position_row][loot_position_column] != "#":
-            gameboard[loot_position_row][loot_position_column] = "E"
-            gameboard_loot_position_rows.append(loot_position_row)
-            gameboard_loot_position_columns.append(loot_position_column)
-            tries += 1
-
-    return gameboard
-
-def escape(tab):
-    os.system("clear")
-    f = open('complete.txt', 'r')
-    file_contents = f.read()
-    print(file_contents)
-    f.close()
-    time.sleep(1)
-    os.system("clear")
-    printing_gameboard(tab)
-    tab = gameboard(30,90)
-    tab[rows-2][columns//2]= "@"
-    printing_gameboard(tab)
-    return tab
-
-def clear_tab(tab):
-    for i in range(len(tab)):
-        tab[i] = [ ]
-        for k in range(len(tab[i])):
-            tab[i][k]=[ ]
-
-    print(tab)
-    return tab
 
 
-def new(tab):
-
-    printing_gameboard(tab)
-    tab = gameboard(30,90)
-    tab[rows-2][columns//2]= "@"
-    printing_gameboard(tab)
-    return tab
 
 
 if __name__ == '__main__':
@@ -324,7 +263,6 @@ if __name__ == '__main__':
     create_lvl(20)
     positioning_loot(tab)
     positioning_challenges(tab)
-    positioning_escape(tab)
 
     while True:
         printing_gameboard(tab)
@@ -346,7 +284,3 @@ if __name__ == '__main__':
             except ValueError:
                 print('\n' * 30)
                 print("Inventory is empty! You don't have anything to remove from inventory!")
-
-        if key == "p":
-            clear_tab(tab)
-

@@ -16,13 +16,14 @@ def increasing_char_hp(inventory_numbers,cloth_armour_class):
 
         return hp
 
-def restore_char_hp(inventory_weight, inventory_numbers, cloth_armour_class, food_restore, char_hp):
+def restore_char_hp(inventory_weight, inventory_numbers, cloth_armour_class, char_hp):
+    food_restore = {'bitten apple' : 0.5, 'cookies': 1, 'beer':2, 'vodka': 3}
     max_health = 1
     for item in inventory_numbers:
         if item in cloth_armour_class:
 
             max_health += cloth_armour_class[item]
-    print(max_health)
+
     if char_hp < max_health:
 
         chosen_food = input("Please indicate which food you would like to eat to restore your health: ")
@@ -30,6 +31,7 @@ def restore_char_hp(inventory_weight, inventory_numbers, cloth_armour_class, foo
         if chosen_food in food_restore:
             char_hp += food_restore[chosen_food]
             print("Mmmm tasty! You feel now much better!")
+            print("Now you have %d health points!" %char_hp)
             if inventory_numbers[chosen_food] > 1:
                 inventory_numbers[chosen_food] -= 1
                 inventory_weight[chosen_food] -= (inventory_weight[chosen_food]/2)
