@@ -133,7 +133,7 @@ def settable(tab):
 def printing_gameboard(list1):
     '''Print board in user-friendly format'''
     import os
-    os.system("clear")
+    # os.system("clear")
     for i in list1:
         print(''.join(i))
 
@@ -320,23 +320,26 @@ def time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
         time0 = time.clock()
         total_time = 0
         while True:
+            printing_gameboard(tab)
+
             time1 = time.clock()
             # print(time0)
             # print(time1)
             total = time1 + time0
-
             # print(total)
-            printing_gameboard(tab)
-            char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
-            print("You currently have %d health points!\n" % char_hp)
+
             key = getch()
             move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class)
-            if key == "i":
-                try:
-                    print_inventory(inventory_weight, inventory_numbers)
-                except ValueError:
-                    print('\n' * 30)
-                    print("Inventory is empty! Go loop for some loot!")
+            char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
+
+            print("You currently have %d health points!\n" % char_hp)
+
+            try:
+                print_inventory(inventory_weight, inventory_numbers)
+            except ValueError:
+                print('\n' * 30)
+                print("Inventory is empty! Go loop for some loot!")
+            # if key == "i":
 
             if key == "r":
                 try:
@@ -381,6 +384,7 @@ def positioning_python(gameboard):
 
 def new_lvl_python(tab, inventory_numbers, inventory_weight, cloth_armour_class):
     '''Creates and set level with Python encounter'''
+    os.system("clear")
     tab = gameboard(rows, columns)
     settable(tab)
     create_box(tab)
@@ -390,16 +394,16 @@ def new_lvl_python(tab, inventory_numbers, inventory_weight, cloth_armour_class)
     coloring_list()
     while True:
         printing_gameboard(tab)
-        char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
-        print("You currently have %d health points!\n" % char_hp)
         key = getch()
         move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class)
-        if key == "i":
-            try:
-                print_inventory(inventory_weight, inventory_numbers)
-            except ValueError:
-                print('\n' * 30)
-                print("Inventory is empty! Go loop for some loot!")
+        char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
+        print("You currently have %d health points!\n" % char_hp)
+        # if key == "i":
+        try:
+            print_inventory(inventory_weight, inventory_numbers)
+        except ValueError:
+            print('\n' * 30)
+            print("Inventory is empty! Go loop for some loot!")
 
         if key == "r":
             try:
@@ -515,25 +519,26 @@ def positioning_boss(gameboard):
 
 def new_lvl_boss(tab, inventory_numbers, inventory_weight, cloth_armour_class):
     '''Creates and set level with Python encounter'''
+    os.system("clear")
     tab = gameboard(rows, columns)
     settable(tab)
     create_box(tab)
-    put_box(5, tab)
+    put_box(23, tab)
     positioning_boss(tab)
     positioning_loot(tab)
     coloring_list()
     while True:
         printing_gameboard(tab)
-        char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
-        print("You currently have %d health points!\n" % char_hp)
         key = getch()
         move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class)
-        if key == "i":
-            try:
-                print_inventory(inventory_weight, inventory_numbers)
-            except ValueError:
-                print('\n' * 30)
-                print("Inventory is empty! Go loop for some loot!")
+        char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
+        print("You currently have %d health points!\n" % char_hp)
+        # if key == "i":
+        try:
+            print_inventory(inventory_weight, inventory_numbers)
+        except ValueError:
+            print('\n' * 30)
+            print("Inventory is empty! Go loop for some loot!")
 
         if key == "r":
             try:
@@ -606,7 +611,7 @@ def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
 
         I have thought up a number. You have %d guesses to get it.''' % char_hp)
     random_number = number_generator()
-    # print(random_number)  # USUNAC TO NA KONCU
+    print(random_number)  # USUNAC TO NA KONCU
 
     print("You currently have %d health points." % char_hp)
     while True:
