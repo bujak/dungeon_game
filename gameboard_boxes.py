@@ -279,5 +279,8 @@ if __name__ == '__main__':
                 print("Inventory is empty! Go loop for some loot!")
 
         if key ==  "r":
-            dropping_item(inventory_weight, inventory_numbers)
-        
+            try:
+                dropping_item(inventory_weight, inventory_numbers)
+            except ValueError:
+                print('\n' * 30)
+                print("Inventory is empty! You don't have anything to remove from inventory!")
