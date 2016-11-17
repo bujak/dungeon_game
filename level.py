@@ -1,68 +1,51 @@
-import os, random, time
-
+import random
+import os
+import time
 
 columns = 90
 rows = 30
 
-def gameboard(x=5, y=5):
-    list1 = []
-    for row in range(x):
-        list1.append([])
-        for column in range(y):
-            if row == 0 or row == x-1 or column == 0 or column == y-1:
-                list1[row].append('#')
+def gameboard(x=30, y=90):
+    tab = []
+    for rzad in range(x):
+        tab.append([])
+        for kolumn in range(y):
+            if rzad == 0 or rzad == x-1 or kolumn == 0 or kolumn == y-1: 
+                tab[rzad].append('#')
             else:
-                list1[row].append('.')
-    return list1
-
-
-tab = gameboard(rows,columns)
-tab[rows-2][columns//2]= "@"
-
-def settable(gameboard):
-    tab = gameboard(rows,columns)
-    tab[rows-2][columns//2]= "@"
+                tab[rzad].append('.')
     return tab
 
 
-def printing_gameboard(list1):
-    import os
+def printing_gameboard(tab):
     os.system("clear")
-    for i in list1:
+    for i in tab:
         print(''.join(i))
+
+
+def settable(tab):
+    tab[rows-2][columns//2]= "@"
+    return tab
 
 
 def create_box(): #take random position and putting # around it
     box_x = random.randrange(3,27)
     box_y = random.randrange(2,88)
     tab[box_x][box_y] = '#'
-    tab[box_x-1][box_y+1] = '#'
+    #tab[box_x-1][box_y+1] = '#'
     tab[box_x+1][box_y-1] = '#'
-    tab[box_x][box_y-1] = '#'
+    #tab[box_x][box_y-1] = '#'
     tab[box_x][box_y+1] = '#'
-    tab[box_x+1][box_y+1] = '#'
+    #tab[box_x+1][box_y+1] = '#'
     tab[box_x-1][box_y] = '#'
-    tab[box_x-1][box_y-1] = '#'
+    #tab[box_x-1][box_y-1] = '#'
     tab[box_x+1][box_y] = '#'
+    return tab
+
 
 def put_box(box_count): #executing create_box X times
     for i in range(1,box_count):
          create_box()
-
-
-def coloring_list(): #coloring printed gameboard with random color
-    color_list = ["'\033[95m'", "'\033[94m'", "'\033[92m'", "'\033[93m'",
-                  "'\033[91m'", "'\033[0m'", "\[\033[0;32m\]", "\[\033[0;35m\]",
-                  "\[\033[0;35m\]", "\[\033[0;36m\]"]
-    rand_color = random.choice(color_list)
-    print(rand_color)
-
-
-# def create_lvl(box_count):
-#     create_box()
-#     coloring_list()
-#     put_box(box_count)
-
 
 
 def getch():
@@ -84,28 +67,11 @@ def find(sign):
                 return [row,column]
 
 
-def escape():
-    # esc_on_gameboard = True
-    esc = find("E")
-    player = find("@")
-    f=None
-    print(esc)
-    print(player)
-    if esc == None:
-        os.system("clear")
-        f = open('complete.txt', 'r')
-        file_contents = f.read()
-        print(file_contents)
-        f.close()
-        time.sleep(3)
-        os.system("clear")
-        settable(gameboard)
-
 def move(key):
     coordinates = find("@")
     x = coordinates[0]
     y = coordinates[1]
-    escape()
+
     if key == "a":
         if tab[x][y-1] == "#":
             tab[x][y] = "@"
@@ -138,7 +104,6 @@ def move(key):
             tab[x+1][y] = "@"
 
 
-
 def positioning_escape(gameboard):
     '''Positioning triggers for loot on gameboard'''
     gameboard_loot_position_rows = []
@@ -157,45 +122,69 @@ def positioning_escape(gameboard):
 
     return gameboard
 
-def print_complete():
-    os.system("clear")
-    f = open('complete.txt', 'r')
-    file_contents = f.read()
-    print(file_contents)
+def coloring_list(): #coloring printed gameboard with random color
+    color_list = ["'\033[95m'", "'\033[94m'", "'\033[92m'", "'\033[93m'",
+                  "'\033[91m'", "'\033[0m'", "\[\033[0;32m\]", "\[\033[0;35m\]",
+                  "\[\033[0;35m\]", "\[\033[0;36m\]"]
+    rand_color = random.choice(color_list)
+    print(rand_color)
+
+def escape(tab, game):
+    esc = find("E")
+
+    player = find("@")
+    f=None
+    print(esc)
+    print(player)
+    if esc == None:
+        os.system("clear")
+        f = open('complete.txt', 'r')
+        file_contents = f.read()
+        print(file_contents)
+        f.close()
+        time.sleep(1)
+        os.system("clear")
+        tab[28][45] = "@"
+        player_x = player[0]
+        player_y = player[1]
+        tab[player_x][player_y]="."
+        positioning_escape(tab)
+        # tab = gameboard()
+        coloring_list()
+        create_box()
+
+        put_box(10)
 
 
 
-    # if (esc[0] == player[0]) and (esc[1] == player[1]):
-    #     coloring_list()
-    #     return ("ok")
 
-def new_lvl():
-    tab = gameboard(rows,columns)
-    tab[rows-2][columns//2]= "@"
+
+def new_lvl(tab):
+
+    tab = gameboard()
+    settable(tab)
     create_box()
-    coloring_list()
-    put_box(50)
-    tab[rows-2][columns//2]= "@"
+    put_box(2)
     positioning_escape(tab)
-
-
-def letsplay():
-    print(find("@"))
     while True:
+        escape(tab)
         printing_gameboard(tab)
-        escape()
         key = getch()
         move(key)
-
+    return tab
 
 if __name__ == '__main__':
 
-
+    tab = gameboard()
+    settable(tab)
     create_box()
-    coloring_list()
-    put_box(20)
-    tab[rows-2][columns//2]= "@"
+    put_box(10)
     positioning_escape(tab)
-    letsplay()
+    game = 0
+    while game == 0:
+        printing_gameboard(tab)
+        key = getch()
+        move(key)
+        escape(tab, game)
 
 
