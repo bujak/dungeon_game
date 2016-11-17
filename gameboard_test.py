@@ -221,6 +221,16 @@ def positioning_exit(gameboard):
 
             tries3 += 1
 
+    tries4 = 0
+    while tries4 != 2:
+        loot_position_column = random.randrange(1,88)
+        loot_position_row = random.randrange(1,27)
+
+        if gameboard[loot_position_row][loot_position_column] != "#"  or "C" or "S" or "B":
+            gameboard[loot_position_row][loot_position_column] = "C"
+
+            tries4 += 1
+
     return gameboard
 
 def positioning_python(gameboard):
@@ -278,6 +288,13 @@ def move(key,tab):
                 tab[x][y] == "."
                 tab[x][y-1] = "."
 
+            elif tab[x][y-1] == "B":
+                challenge3(challenge3(inventory_numbers, inventory_weight, cloth_armour_class, food_restore, char_hp))
+                tab[x][y] == "."
+                tab[x][y-1] = "."
+
+            
+
             else:
                 tab[x][y] = "."
                 tab[x][y-1] = "@"
@@ -300,6 +317,11 @@ def move(key,tab):
 
             elif tab[x][y+1] == "S":
                 challenge2(inventory_numbers,weapons_damage)
+                tab[x][y] == "."
+                tab[x][y+1] = "."
+
+            elif tab[x][y+1] == "B":
+                challenge3(challenge3(inventory_numbers, inventory_weight, cloth_armour_class, food_restore, char_hp))
                 tab[x][y] == "."
                 tab[x][y+1] = "."
 
@@ -328,6 +350,11 @@ def move(key,tab):
                 tab[x][y] == "."
                 tab[x-1][y] = "."
 
+            elif tab[x-1][y] == "B":
+                challenge3(challenge3(inventory_numbers, inventory_weight, cloth_armour_class, food_restore, char_hp))
+                tab[x][y] == "."
+                tab[x-1][y] = "."
+
             else:
                 tab[x][y] = "."
                 tab[x-1][y] = "@"
@@ -351,6 +378,12 @@ def move(key,tab):
                 challenge2(inventory_numbers,weapons_damage)
                 tab[x][y] == "."
                 tab[x+1][y] = "."
+
+            elif tab[x+1][y] == "B":
+                challenge3(challenge3(inventory_numbers, inventory_weight, cloth_armour_class, food_restore, char_hp))
+                tab[x][y] == "."
+                tab[x+1][y] = "."
+
 
             else:
                 tab[x][y] = "."

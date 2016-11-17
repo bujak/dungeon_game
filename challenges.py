@@ -151,7 +151,7 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
             python_hp -=1
             stars_list.remove("*")
             print(''.join(stars_list))
-            continue
+
         if key == "t":
             best_weapon_in_inventory = []
             for key in inventory_numbers:
@@ -161,14 +161,20 @@ weapon to defeat him. Your best weapon is on \"t\" key. Let's go!\n\n\n")
 
 
             damage = max(best_weapon_in_inventory)
+
             python_hp -= damage
+
+            #for i in range(damage):
+                #stars_list.remove("*")
+
             print("Python suffers %d damages and bleeds! You are sadist! Shame! *ding ding*" %damage)
-            continue
+
 
                       ###### YOU CAN CHANGE POWER OF WEAPON HERE
-            if python_hp > 1:
-                stars_list.remove("*")
-                stars_list.remove("*")
+            if python_hp > 3:
+                for i in range(damage):
+                    stars_list.remove("*")
+
             print(''.join(stars_list))
         t1 = time.time()
         total = t1 - t0
