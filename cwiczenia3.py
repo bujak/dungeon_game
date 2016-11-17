@@ -107,17 +107,23 @@ which wants to eats you! You must defeat him!")
     print(file_contents)
 
     python_hp = 10
-    stars_list = []
+    stars_list = ["*"] * python_hp
+    #print("dziala")
+
+    for x in stars_list:
+        print(x, end='')
+
     while python_hp < 15:
         key = getch()
         if key == "q":
             break
         if key == "w" or key == "s" or key == "a" or key == "d":
-            stars_list.append("*")
             python_hp -=1
-            #for i in stars_list:
-            #print("*"*python_hp, end=" ")
-            print("dziala", end="")
+            stars_list.remove("*")
+        for x in stars_list:
+            print(x, end='')
+
+
 
 
     #elif z == "n":
