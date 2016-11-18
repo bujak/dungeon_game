@@ -350,7 +350,11 @@ def time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
 
             if sum(inventory_numbers.values()) > 4:
                 print("/n" * 30)
-                print("YOU WON!")
+                os.system("clear")
+                f = open('complete.txt', 'r')
+                file_contents = f.read()
+                print(file_contents)
+                time.sleep(3)
 
                 new_lvl_python(tab, inventory_numbers, inventory_weight, cloth_armour_class)
 
@@ -617,7 +621,7 @@ def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
     print("You currently have %d health points." % char_hp)
     while True:
         key = getch()
-        user_input = input("\nGuess #%d or press 'h' to heal by eating food:\n" % (char_hp))
+        user_input = input("\nLives: %d - Press 'h' to heal by eating food:\n" % (char_hp))
         if user_input == "h":
             print_inventory(inventory_weight, inventory_numbers)
             restore_char_hp(inventory_numbers, inventory_weight, cloth_armour_class, char_hp)
