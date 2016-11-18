@@ -596,6 +596,7 @@ def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
     '''boss encounter'''
 
     os.system("clear")
+    coloring_list()
     char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
     print('''I am thinking of a 3-digit number. Try to guess what it is.
 
