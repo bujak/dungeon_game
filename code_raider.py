@@ -207,7 +207,7 @@ def move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class):
                 tab[x][y-1] = "."
 
             elif tab[x][y-1] == "S":
-                challenge2(inventory_numbers, weapons_damage)
+                challenge2(inventory_numbers,inventory_weight, weapons_damage)
                 tab[x][y] == "."
                 tab[x][y-1] = "."
             else:
@@ -231,7 +231,7 @@ def move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class):
                 tab[x][y+1] = "."
 
             elif tab[x][y+1] == "S":
-                challenge2(inventory_numbers, weapons_damage)
+                challenge2(inventory_numbers, inventory_weight, weapons_damage)
                 tab[x][y] == "."
                 tab[x][y+1] = "."
 
@@ -256,7 +256,7 @@ def move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class):
                 tab[x-1][y] = "."
 
             elif tab[x-1][y] == "S":
-                challenge2(inventory_numbers, weapons_damage)
+                challenge2(inventory_numbers, inventory_weight, weapons_damage)
                 tab[x][y] == "."
                 tab[x-1][y] = "."
 
@@ -278,7 +278,7 @@ def move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class):
                 tab[x+1][y] == "."
 
             elif tab[x+1][y] == "S":
-                challenge2(inventory_numbers, weapons_damage)
+                challenge2(inventory_numbers, inventory_weight, weapons_damage)
                 tab[x][y] == "."
                 tab[x+1][y] = "."
             else:
@@ -443,7 +443,7 @@ def new_lvl_python(tab, inventory_numbers, inventory_weight, cloth_armour_class)
                 print("Inventory is empty! You don't have anything to remove from inventory!")
 
 
-def challenge2(inventory_numbers, weapons_damage):
+def challenge2(inventory_numbers, inventory_weight, weapons_damage):
     '''Challenge with python trampling'''
     os.system("clear")
     print("\033[1m Wooaaaaaaaa! Watch out! There is an extremly huge Python,\

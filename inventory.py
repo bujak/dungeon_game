@@ -1,9 +1,7 @@
 import  random
-from gameboard_boxes import *
+
 from hp_system import *
 
-inventory_weight = {}
-inventory_numbers = {}
 
 weapons_damage = {'rainbow sword of sir Charlie the Unicode': 3, 'dwarven axe from Lambda': 4, 'bow from Ascii': 2,
                'warhammer of 40 000 lost souls': 5}

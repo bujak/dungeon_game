@@ -1,4 +1,4 @@
-from gameboard_boxes import *
+
 from inventory import *
 
 
@@ -39,7 +39,7 @@ def restore_char_hp(inventory_weight, inventory_numbers, cloth_armour_class, cha
             else:
                 del inventory_numbers[chosen_food]
                 del inventory_weight[chosen_food]
-            return char_hp, inventory_numbers, inventory_weight
+            return char_hp
 
         elif chosen_food not in food_restore:
             print("Sorry, you don't have such food in your inventory.")
