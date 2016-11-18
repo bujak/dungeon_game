@@ -563,7 +563,6 @@ def new_lvl_boss(tab, inventory_numbers, inventory_weight, cloth_armour_class):
         move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class)
         char_hp = increasing_char_hp(inventory_numbers, cloth_armour_class)
         print("You currently have %d health points!\n" % char_hp)
-        # if key == "i":
         try:
             print_inventory(inventory_weight, inventory_numbers)
         except ValueError:
@@ -648,9 +647,6 @@ def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
     while True:
         key = getch()
         user_input = input("\nLives: %d ❤ \n" % (char_hp))
-        #if user_input == "h":
-            #print_inventory(inventory_weight, inventory_numbers)
-            #restore_char_hp(inventory_numbers, inventory_weight, cloth_armour_class, char_hp)
         if len(user_input) != 3 or not user_input.isdigit():
             print("wrong input")
             continue
@@ -676,9 +672,6 @@ def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
             time.sleep(10)
             main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
         char_hp -= 1
-
-
-# if __name__ == '__main__':
 
 
 tab = gameboard(rows, columns)
