@@ -78,7 +78,7 @@ def adding_loot(inventory_weight, inventory_numbers):
 
     increasing_char_hp(inventory_numbers,cloth_armour_class)
     print('\n' * 30)
-    print("Yay! You have acquired %s!" %item)  #print_acquired item
+    print("Yay! You have found %s!" %item)  #print_acquired item
     return inventory_weight, inventory_numbers
 
 
