@@ -320,7 +320,7 @@ def time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
 
     os.system("clear")
     print("Challenge 1\n\n")
-    print("You have to collect 5 loot in 40 seconds. Good luck!\n")
+    print("You have to collect 5 loot in 20 seconds. Good luck!\n")
     z = input("Are you ready? (y - yes, n - no) ")
     if z == "y":
 
@@ -330,16 +330,12 @@ def time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
         put_box(25, tab)
         positioning_loot(tab)
         coloring_list()
-        time0 = time.clock()
-        total_time = 0
-        while True:
-            printing_gameboard(tab)
+        time0 = time.time()
 
-            time1 = time.clock()
-            # print(time0)
-            # print(time1)
-            total = time1 + time0
-            # print(total)
+        while True:
+            time1 = time.time()
+            total = time1 - time0
+            printing_gameboard(tab)
 
             key = getch()
             move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class)
@@ -362,22 +358,33 @@ def time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
                     print("Inventory is empty! You don't have anything to remove.")
 
             if sum(inventory_numbers.values()) > 4:
-                print("/n" * 30)
-                os.system("clear")
-                f = open('complete.txt', 'r')
-                file_contents = f.read()
-                print(file_contents)
-                time.sleep(3)
+                break
+                # print("/n" * 30)
+                # os.system("clear")
+                # f = open('complete.txt', 'r')
+                # file_contents = f.read()
+                # print(file_contents)
+                # time.sleep(3)
 
                 new_lvl_python(tab, inventory_numbers, inventory_weight, cloth_armour_class)
+        time1 = time.time()
+        total = time1 - time0
 
-            if total > 0.40:
-                print("/n" * 30)
-                os.system("clear")
-                f = open('youlose.txt', 'r')
-                file_contents = f.read()
-                print(file_contents)
-                main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
+        if total > 20:
+            os.system("clear")
+            f = open('youlose.txt', 'r')
+            file_contents = f.read()
+            print(file_contents)
+            time.sleep(6)
+            main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
+        if total <=20:
+
+            os.system("clear")
+            f = open('complete.txt', 'r')
+            file_contents = f.read()
+            print(file_contents)
+            time.sleep(6)
+            new_lvl_python(tab, inventory_numbers, inventory_weight, cloth_armour_class)
 
     if z == "n":
         print("Your loss ^^ ")
@@ -640,10 +647,10 @@ def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
     print("You currently have %d ❤ health points." % char_hp)
     while True:
         key = getch()
-        user_input = input("\nLives: %d ❤ - Press 'h' to heal by eating food:\n" % (char_hp))
-        if user_input == "h":
-            print_inventory(inventory_weight, inventory_numbers)
-            restore_char_hp(inventory_numbers, inventory_weight, cloth_armour_class, char_hp)
+        user_input = input("\nLives: %d ❤ \n" % (char_hp))
+        #if user_input == "h":
+            #print_inventory(inventory_weight, inventory_numbers)
+            #restore_char_hp(inventory_numbers, inventory_weight, cloth_armour_class, char_hp)
         if len(user_input) != 3 or not user_input.isdigit():
             print("wrong input")
             continue
@@ -679,6 +686,8 @@ tab = gameboard(rows, columns)
 
 def main(tab, inventory_numbers, inventory_weight, cloth_armour_class):
     """Runs program as a tree"""
+    inventory_weight = {}
+    inventory_numbers = {}
     os.system("clear")
     welcome_to()
     time.sleep(1)
