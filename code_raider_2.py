@@ -358,8 +358,7 @@ def time_challenge(tab, total_time, time0, time1, inventory_numbers, inventory_w
                 file_contents = f.read()
                 print(file_contents)
                 time.sleep(3)
-                main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
-
+                sys.exit()
 
     else:
         main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
