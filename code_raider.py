@@ -43,7 +43,11 @@ challenges and finally defeat a boss. \n")
     print("To move down, press \"s\"")
     print("To move left, press \"a\"")
     print("To move right, press \"d\" \n")
-    print("3. A R E  Y O U  R E A D Y ???\n (y - yes =), n - no :(")
+    print("To use your best weapon (if you have it), press \"t\" \n")
+    print("\n To see credits press \"c\" ")
+    print("To exit program press \"q\" \n \n \n ")
+    print("3. A R E  Y O U  R E A D Y ???\n y - yes, n - no :(, c - credits, q - exit program")
+
 
 
 def credits():
@@ -56,19 +60,19 @@ def credits():
     print("")
     print("")
     print("OUR TEAM: \n")
-    print("Piotr")
-    print("Michal")
-    print("Tomek")
-    print("Krzysiek")
-    print(" ")
-    print(" ")
-    print(" ")
+    print("Piotr Balon")
+    print("Michal Doniec")
+    print("Tomek Bujakowski")
+    print("Krzysiek Dzioba \n \n \n")
+
     print("WHO WHAT HAVE DONE:\n")
     print("Piotr - ASCII Master King")
     print("Michal - Item Thief, Master of Life and Unlife")
     print("Tomek - Level Developer")
     print("Krzysiek - Design Developer")
+    time.sleep(5)
     f.close()
+    main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
 
 
 '''General functions.'''
@@ -290,6 +294,11 @@ def move(key, tab, inventory_numbers, inventory_weight, cloth_armour_class):
 
 def are_you_ready(key, tab, inventory_numbers, inventory_weight, cloth_armour_class):
     """Asks user if he is ready to play"""
+    commands_list = ["y", "n", "c", "q"]
+    while key not in commands_list:
+        print("Wrong input")
+        key = getch()
+        are_you_ready(key, tab, inventory_numbers, inventory_weight, cloth_armour_class)
     if key == "y":
         time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
     elif key == "n":
@@ -299,6 +308,10 @@ def are_you_ready(key, tab, inventory_numbers, inventory_weight, cloth_armour_cl
         print(file_contents)
         time.sleep(2)
         f.close()
+        main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
+    elif key =="c":
+        credits()
+    elif key =="q":
         sys.exit()
 
 
@@ -366,8 +379,14 @@ def time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
                 print(file_contents)
                 main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
 
+    if z == "n":
+        print("Your loss ^^ ")
+        time.sleep(2)
+        time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
     else:
-        main(tab, inventory_numbers, inventory_weight, cloth_armour_class)
+        print("Wrong input ")
+        time.sleep(2)
+        time_challenge(tab, inventory_numbers, inventory_weight, cloth_armour_class)
 
 
 def positioning_python(gameboard):
@@ -618,10 +637,10 @@ def boss_fight(inventory_weight, inventory_numbers, cloth_armour_class):
     random_number = number_generator()
     print(random_number)  # USUNAC TO NA KONCU
 
-    print("You currently have %d health points." % char_hp)
+    print("You currently have %d ❤ health points." % char_hp)
     while True:
         key = getch()
-        user_input = input("\nLives: %d - Press 'h' to heal by eating food:\n" % (char_hp))
+        user_input = input("\nLives: %d ❤ - Press 'h' to heal by eating food:\n" % (char_hp))
         if user_input == "h":
             print_inventory(inventory_weight, inventory_numbers)
             restore_char_hp(inventory_numbers, inventory_weight, cloth_armour_class, char_hp)
